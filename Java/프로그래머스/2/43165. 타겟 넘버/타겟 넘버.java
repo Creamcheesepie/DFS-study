@@ -1,20 +1,17 @@
 class Solution {
-    boolean[] visited;
-    
+    int count = 0;
     public int solution(int[] numbers, int target) {
-        visited = new boolean[numbers.length];
-        int answer = dfs(numbers,0,target,0);
-        return answer;
+        dfs(numbers,target,0,0);
+        return count;
     }
     
-    private int dfs(int[] numbers, int idx, int target, int n){
-        int max = 0;
-        if(idx == numbers.length && n == target ) return 1;
-        else if(idx == numbers.length) return 0;
+    private void dfs(int[] numbers, int target,int i,int total){
+        if(i == numbers.length){
+            if(total == target) count++;
+            return;
+        }
         
-        max += dfs(numbers, idx+1, target, n + numbers[idx]);
-        max += dfs(numbers, idx+1, target, n - numbers[idx]);
-        
-        return max;
+        dfs(numbers,target,i+1,total+numbers[i]);
+        dfs(numbers,target,i+1,total-numbers[i]);
     }
 }
